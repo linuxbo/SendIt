@@ -1,181 +1,101 @@
-'use client'
+import Image from 'next/image'
 
-import * as Headless from '@headlessui/react'
-import { ArrowLongRightIcon } from '@heroicons/react/20/solid'
-import { clsx } from 'clsx'
-import {
-  motion,
-  useMotionValueEvent,
-  useScroll,
-  useSpring,
-} from 'framer-motion'
-import { useCallback, useLayoutEffect, useRef, useState } from 'react'
-import useMeasure from 'react-use-measure'
-import { Container } from './container'
-import { Link } from './link'
-import { Heading, Subheading } from './text'
+import { Container } from '@/components/Container'
+import avatarImage1 from '@/images/avatars/avatar-1.png'
+import avatarImage2 from '@/images/avatars/avatar-2.png'
+import avatarImage3 from '@/images/avatars/avatar-3.png'
+import avatarImage4 from '@/images/avatars/avatar-4.png'
+import avatarImage5 from '@/images/avatars/avatar-5.png'
 
 const testimonials = [
-  {
-    img: '/testimonials/nathan-wong.jpeg',
-    name: 'Nathan Wong',
-    title: 'Support Engineer',
-    quote:
-      'I love this stuff. Business stuff',
-  },
-
-  {
-    img: '/testimonials/linus-chan.jpeg',
-    name: 'Linus Chan',
-    title: 'Founder',
-    quote:
-      'Hey, I wanted to start another podcast. Fun.',
-  },
+  [
+    {
+      content:
+        'I love this stuff. Business stuff.',
+      author: {
+        name: 'Nathan Wong',
+        role: 'Support Engineer',
+        image: avatarImage1,
+      },
+    },
+    {
+      content:
+        'Hey, I wanted to start another podcast. Fun.',
+      author: {
+        name: 'Linus Chan',
+        role: 'Founder',
+        image: avatarImage4,
+      },
+    },
+  ],
+   
 ]
 
-
-function TestimonialCard({
-  name,
-  title,
-  img,
-  children,
-  bounds,
-  scrollX,
-  ...props
-}) {
-  let ref = useRef(null)
-
-  let computeOpacity = useCallback(() => {
-    let element = ref.current
-    if (!element || bounds.width === 0) return 1
-
-    let rect = element.getBoundingClientRect()
-
-    if (rect.left < bounds.left) {
-      let diff = bounds.left - rect.left
-      let percent = diff / rect.width
-      return Math.max(0.5, 1 - percent)
-    } else if (rect.right > bounds.right) {
-      let diff = rect.right - bounds.right
-      let percent = diff / rect.width
-      return Math.max(0.5, 1 - percent)
-    } else {
-      return 1
-    }
-  }, [ref, bounds.width, bounds.left, bounds.right])
-
-  let opacity = useSpring(computeOpacity(), {
-    stiffness: 154,
-    damping: 23,
-  })
-
-  useLayoutEffect(() => {
-    opacity.set(computeOpacity())
-  }, [computeOpacity, opacity])
-
-  useMotionValueEvent(scrollX, 'change', () => {
-    opacity.set(computeOpacity())
-  })
-
+function QuoteIcon(props) {
   return (
-    <motion.div
-      ref={ref}
-      style={{ opacity }}
-      {...props}
-      className="relative flex aspect-[9/16] w-72 shrink-0 snap-start scroll-ml-[var(--scroll-padding)] flex-col justify-end overflow-hidden rounded-3xl sm:aspect-[3/4] sm:w-96"
-    >
-      <img
-        alt=""
-        src={img}
-        className="absolute inset-x-0 top-0 aspect-square w-full object-cover"
-      />
-      <div
-        aria-hidden="true"
-        className="absolute inset-0 rounded-3xl bg-gradient-to-t from-black from-[calc(7/16*100%)] ring-1 ring-inset ring-gray-950/10 sm:from-25%"
-      />
-      <figure className="relative p-10">
-        <blockquote>
-          <p className="relative text-xl/7 text-white">
-            <span aria-hidden="true" className="absolute -translate-x-full">
-              “
-            </span>
-            {children}
-            <span aria-hidden="true" className="absolute">
-              ”
-            </span>
-          </p>
-        </blockquote>
-        <figcaption className="mt-6 border-t border-white/20 pt-6">
-          <p className="text-sm/6 font-medium text-white">{name}</p>
-          <p className="text-sm/6 font-medium">
-            <span className="bg-gradient-to-r from-[#fff1be] from-[28%] via-[#ee87cb] via-[70%] to-[#b060ff] bg-clip-text text-transparent">
-              {title}
-            </span>
-          </p>
-        </figcaption>
-      </figure>
-    </motion.div>
-  )
-}
-
-function CallToAction() {
-  return (
-    <div>
-    </div>
+    <svg aria-hidden="true" width={105} height={78} {...props}>
+      <path d="M25.086 77.292c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622C1.054 58.534 0 53.411 0 47.686c0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C28.325 3.917 33.599 1.507 39.324 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Zm54.24 0c-4.821 0-9.115-1.205-12.882-3.616-3.767-2.561-6.78-6.102-9.04-10.622-2.11-4.52-3.164-9.643-3.164-15.368 0-5.273.904-10.396 2.712-15.368 1.959-4.972 4.746-9.567 8.362-13.786a59.042 59.042 0 0 1 12.43-11.3C82.565 3.917 87.839 1.507 93.564 0l11.074 13.786c-6.479 2.561-11.677 5.951-15.594 10.17-3.767 4.219-5.65 7.835-5.65 10.848 0 1.356.377 2.863 1.13 4.52.904 1.507 2.637 3.089 5.198 4.746 3.767 2.41 6.328 4.972 7.684 7.684 1.507 2.561 2.26 5.5 2.26 8.814 0 5.123-1.959 9.19-5.876 12.204-3.767 3.013-8.588 4.52-14.464 4.52Z" />
+    </svg>
   )
 }
 
 export function Testimonials() {
-  let scrollRef = useRef(null)
-  let { scrollX } = useScroll({ container: scrollRef })
-  let [setReferenceWindowRef, bounds] = useMeasure()
-  let [activeIndex, setActiveIndex] = useState(0)
-
-  useMotionValueEvent(scrollX, 'change', (x) => {
-    setActiveIndex(Math.floor(x / scrollRef.current.children[0].clientWidth))
-  })
-
-  function scrollTo(index) {
-    let gap = 32
-    let width = scrollRef.current.children[0].offsetWidth
-    scrollRef.current.scrollTo({ left: (width + gap) * index })
-  }
-
   return (
-    <div className="overflow-hidden py-32">
+    <section
+      id="testimonials"
+      aria-label="What our customers are saying"
+      className="bg-slate-50 py-20 sm:py-32"
+    >
       <Container>
-        <div ref={setReferenceWindowRef}>
-          <Subheading>Who we are</Subheading>
-          <Heading as="h3" className="mt-2">
-            Figuring it out as we go.
-          </Heading>
-        </div>
-      </Container>
-      <div
-        ref={scrollRef}
-        className={clsx([
-          'mt-16 flex gap-8 px-[var(--scroll-padding)]',
-          '[scrollbar-width:none] [&::-webkit-scrollbar]:hidden',
-          'snap-x snap-mandatory overflow-x-auto overscroll-x-contain scroll-smooth',
-          '[--scroll-padding:max(theme(spacing.6),calc((100vw-theme(maxWidth.2xl))/2))] lg:[--scroll-padding:max(theme(spacing.8),calc((100vw-theme(maxWidth.7xl))/2))]',
-        ])}
-      >
-        {testimonials.map(({ img, name, title, quote }, testimonialIndex) => (
-          <TestimonialCard
-            key={testimonialIndex}
-            name={name}
-            title={title}
-            img={img}
-            bounds={bounds}
-            scrollX={scrollX}
-            onClick={() => scrollTo(testimonialIndex)}
-          >
-            {quote}
-          </TestimonialCard>
-        ))}
-        <div className="w-[42rem] shrink-0 sm:w-[54rem]" />
-      </div>
+        <div className="mx-auto max-w-2xl md:text-center">
+          <h2 className="font-display text-3xl tracking-tight text-slate-900 sm:text-4xl">
+            Who we are.
+          </h2>
  
-    </div>
+        </div>
+        <ul
+          role="list"
+          className="mx-auto mt-16 grid max-w-2xl grid-cols-1 gap-6 sm:gap-8 lg:mt-20 lg:max-w-none lg:grid-cols-3"
+        >
+          {testimonials.map((column, columnIndex) => (
+            <li key={columnIndex}>
+              <ul role="list" className="flex flex-col gap-y-6 sm:gap-y-8">
+                {column.map((testimonial, testimonialIndex) => (
+                  <li key={testimonialIndex}>
+                    <figure className="relative rounded-2xl bg-white p-6 shadow-xl shadow-slate-900/10">
+                      <QuoteIcon className="absolute left-6 top-6 fill-slate-100" />
+                      <blockquote className="relative">
+                        <p className="text-lg tracking-tight text-slate-900">
+                          {testimonial.content}
+                        </p>
+                      </blockquote>
+                      <figcaption className="relative mt-6 flex items-center justify-between border-t border-slate-100 pt-6">
+                        <div>
+                          <div className="font-display text-base text-slate-900">
+                            {testimonial.author.name}
+                          </div>
+                          <div className="mt-1 text-sm text-slate-500">
+                            {testimonial.author.role}
+                          </div>
+                        </div>
+                        <div className="overflow-hidden rounded-full bg-slate-50">
+                          <Image
+                            className="h-14 w-14 object-cover"
+                            src={testimonial.author.image}
+                            alt=""
+                            width={56}
+                            height={56}
+                          />
+                        </div>
+                      </figcaption>
+                    </figure>
+                  </li>
+                ))}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </Container>
+    </section>
   )
 }

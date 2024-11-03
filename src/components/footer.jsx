@@ -1,142 +1,38 @@
-import { PlusGrid, PlusGridItem, PlusGridRow } from '@/components/plus-grid'
-import { Button } from './button'
-import { Container } from './container'
-import { Gradient } from './gradient'
-import { Link } from './link'
-import { Logo } from './logo'
-import { Subheading } from './text'
+import Link from 'next/link'
 
-function CallToAction() {
-  return (
-    <div >
- 
-    </div>
-  )
-}
-
-function SitemapHeading({ children }) {
-  return <h3 className="text-sm/6 font-medium text-gray-950/50">{children}</h3>
-}
-
-function SitemapLinks({ children }) {
-  return <ul className="mt-6 space-y-4 text-sm/6">{children}</ul>
-}
-
-function SitemapLink(props) {
-  return (
-    <li>
-      <Link
-        {...props}
-        className="font-medium text-gray-950 data-[hover]:text-gray-950/75"
-      />
-    </li>
-  )
-}
-
-function Sitemap() {
-  return (
-    <>
-      <div>
-      </div>
-    </>
-  )
-}
-
-function SocialIconX(props) {
-  return (
-    <svg viewBox="0 0 16 16" fill="currentColor" {...props}>
-     </svg>
-  )
-}
-
-function SocialIconFacebook(props) {
-  return (
-    <svg viewBox="0 0 16 16" fill="currentColor" {...props}>
-     </svg>
-  )
-}
-
-function SocialIconLinkedIn(props) {
-  return (
-    <svg viewBox="0 0 16 16" fill="currentColor" {...props}>
-     </svg>
-  )
-}
-
-function SocialLinks() {
-  return (
-    <>
-      <Link
-        href="https://facebook.com"
-        target="_blank"
-        aria-label="Visit us on Facebook"
-        className="text-gray-950 data-[hover]:text-gray-950/75"
-      >
-        <SocialIconFacebook className="size-4" />
-      </Link>
-      <Link
-        href="https://x.com"
-        target="_blank"
-        aria-label="Visit us on X"
-        className="text-gray-950 data-[hover]:text-gray-950/75"
-      >
-        <SocialIconX className="size-4" />
-      </Link>
-      <Link
-        href="https://linkedin.com"
-        target="_blank"
-        aria-label="Visit us on LinkedIn"
-        className="text-gray-950 data-[hover]:text-gray-950/75"
-      >
-        <SocialIconLinkedIn className="size-4" />
-      </Link>
-    </>
-  )
-}
-
-function Copyright() {
-  return (
-    <div className="text-sm/6 text-gray-950">
-      &copy; {new Date().getFullYear()} SendIt.
-    </div>
-  )
-}
+import { Container } from '@/components/Container'
+import { Logo } from '@/components/Logo'
+import { NavLink } from '@/components/NavLink'
 
 export function Footer() {
   return (
-    <footer>
-      <Gradient className="relative">
-        <div className="absolute inset-2 rounded-4xl bg-white/80" />
-        <Container>
-          <CallToAction />
-          <PlusGrid className="pb-16">
-            <PlusGridRow>
-              <div className="grid grid-cols-2 gap-y-10 pb-6 lg:grid-cols-6 lg:gap-8">
-                <div className="col-span-2 flex">
-                  <PlusGridItem className="pt-6 lg:pb-6">
-                    <Logo className="h-9" />
-                  </PlusGridItem>
-                </div>
-                <div className="col-span-2 grid grid-cols-2 gap-x-8 gap-y-12 lg:col-span-4 lg:grid-cols-subgrid lg:pt-6">
-                  <Sitemap />
-                </div>
-              </div>
-            </PlusGridRow>
-            <PlusGridRow className="flex justify-between">
-              <div>
-                <PlusGridItem className="py-3">
-                  <Copyright />
-                </PlusGridItem>
-              </div>
-              <div className="flex">
-                <PlusGridItem className="flex items-center gap-8 py-3">
-                  <SocialLinks />
-                </PlusGridItem>
-              </div>
-            </PlusGridRow>
-          </PlusGrid>
-        </Container>
-      </Gradient>
+    <footer className="bg-slate-50">
+      <Container>
+        <div className="py-16">
+          <Logo className="mx-auto h-10 w-auto" />
+          <nav className="mt-10 text-sm" aria-label="quick links">
+            <div className="-my-1 flex justify-center gap-x-6">
+              <NavLink href="#features"></NavLink>
+              <NavLink href="#testimonials"></NavLink>
+              <NavLink href="#pricing"></NavLink>
+            </div>
+          </nav>
+        </div>
+        <div className="flex flex-col items-center border-t border-slate-400/10 py-10 sm:flex-row-reverse sm:justify-between">
+          <div className="flex gap-x-6">
+            <Link href="#" className="group" aria-label="TaxPal on X">
+ 
+            </Link>
+            <Link href="#" className="group" aria-label="TaxPal on GitHub">
+ 
+            </Link>
+          </div>
+          <p className="mt-6 text-sm text-slate-500 sm:mt-0">
+            Copyright &copy; {new Date().getFullYear()} SendIt. All rights
+            reserved.
+          </p>
+        </div>
+      </Container>
     </footer>
   )
 }

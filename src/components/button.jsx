@@ -1,35 +1,46 @@
-import * as Headless from '@headlessui/react'
-import { clsx } from 'clsx'
-import { Link } from './link'
+import Link from 'next/link'
+import clsx from 'clsx'
 
-const variants = {
-  primary: clsx(
-    'inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)]',
-    'rounded-full border border-transparent bg-gray-950 shadow-md',
-    'whitespace-nowrap text-base font-medium text-white',
-    'data-[disabled]:bg-gray-950 data-[hover]:bg-gray-800 data-[disabled]:opacity-40',
-  ),
-  secondary: clsx(
-    'relative inline-flex items-center justify-center px-4 py-[calc(theme(spacing.2)-1px)]',
-    'rounded-full border border-transparent bg-white/15 shadow-md ring-1 ring-[#D15052]/15',
-    'after:absolute after:inset-0 after:rounded-full after:shadow-[inset_0_0_2px_1px_#ffffff4d]',
-    'whitespace-nowrap text-base font-medium text-gray-950',
-    'data-[disabled]:bg-white/15 data-[hover]:bg-white/20 data-[disabled]:opacity-40',
-  ),
-  outline: clsx(
-    'inline-flex items-center justify-center px-2 py-[calc(theme(spacing.[1.5])-1px)]',
-    'rounded-lg border border-transparent shadow ring-1 ring-black/10',
-    'whitespace-nowrap text-sm font-medium text-gray-950',
-    'data-[disabled]:bg-transparent data-[hover]:bg-gray-50 data-[disabled]:opacity-40',
-  ),
+const baseStyles = {
+  solid:
+    'group inline-flex items-center justify-center rounded-full py-2 px-4 text-sm font-semibold focus:outline-none focus-visible:outline-2 focus-visible:outline-offset-2',
+  outline:
+    'group inline-flex ring-1 items-center justify-center rounded-full py-2 px-4 text-sm focus:outline-none',
 }
 
-export function Button({ variant = 'primary', className, ...props }) {
-  className = clsx(className, variants[variant])
+const variantStyles = {
+  solid: {
+    slate:
+      'bg-slate-900 text-white hover:bg-slate-700 hover:text-slate-100 active:bg-slate-800 active:text-slate-300 focus-visible:outline-slate-900',
+    blue: 'bg-blue-600 text-white hover:text-slate-100 hover:bg-blue-500 active:bg-blue-800 active:text-blue-100 focus-visible:outline-blue-600',
+    white:
+      'bg-white text-slate-900 hover:bg-blue-50 active:bg-blue-200 active:text-slate-600 focus-visible:outline-white',
+  },
+  outline: {
+    slate:
+      'ring-slate-200 text-slate-700 hover:text-slate-900 hover:ring-slate-300 active:bg-slate-100 active:text-slate-600 focus-visible:outline-blue-600 focus-visible:ring-slate-300',
+    white:
+      'ring-slate-700 text-white hover:ring-slate-500 active:ring-slate-700 active:text-slate-400 focus-visible:outline-white',
+  },
+}
 
-  if (typeof props.href === 'undefined') {
-    return <Headless.Button {...props} className={className} />
-  }
+export function Button({ className, ...props }) {
+  props.variant ??= 'solid'
+  props.color ??= 'slate'
 
-  return <Link {...props} className={className} />
+  className = clsx(
+    baseStyles[props.variant],
+    props.variant === 'outline'
+      ? variantStyles.outline[props.color]
+      : props.variant === 'solid'
+        ? variantStyles.solid[props.color]
+        : undefined,
+    className,
+  )
+
+  return typeof props.href === 'undefined' ? (
+    <button className={className} {...props} />
+  ) : (
+    <Link className={className} {...props} />
+  )
 }

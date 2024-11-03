@@ -1,9 +1,10 @@
-import { clsx } from 'clsx'
+import clsx from 'clsx'
 
-export function Container({ className, children }) {
+export function Container({ className, ...props }) {
   return (
-    <div className={clsx(className, 'px-6 lg:px-8')}>
-      <div className="mx-auto max-w-2xl lg:max-w-7xl">{children}</div>
-    </div>
+    <div
+      className={clsx('mx-auto max-w-7xl px-4 sm:px-6 lg:px-8', className)}
+      {...props}
+    />
   )
 }
