@@ -12,10 +12,11 @@ import { Logo } from './logo'
 import { PlusGrid, PlusGridItem, PlusGridRow } from './plus-grid'
 
 const links = [
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/company', label: 'Company' },
-  { href: '/blog', label: 'Blog' },
-  { href: '/login', label: 'Login' },
+  { href: 'https://shows.acast.com/send-it', label: 'Podcast' },
+  { href: 'https://www.linkedin.com/in/nathancswong/', label: 'Nathan' },
+  { href: 'https://www.linkedin.com/in/chanlinus/', label: 'Linus' },
+
+
 ]
 
 function DesktopNav() {

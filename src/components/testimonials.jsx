@@ -17,47 +17,22 @@ import { Heading, Subheading } from './text'
 
 const testimonials = [
   {
-    img: '/testimonials/tina-yards.jpg',
-    name: 'Tina Yards',
-    title: 'VP of Sales, Protocol',
+    img: '/testimonials/nathan-wong.jpeg',
+    name: 'Nathan Wong',
+    title: 'Support Engineer',
     quote:
-      'Thanks to Radiant, we’re finding new leads that we never would have found with legal methods.',
+      'I love this stuff. Business stuff',
   },
+
   {
-    img: '/testimonials/conor-neville.jpg',
-    name: 'Conor Neville',
-    title: 'Head of Customer Success, TaxPal',
+    img: '/testimonials/linus-chan.jpeg',
+    name: 'Linus Chan',
+    title: 'Founder, Senior Technical Writer, Independent Consultant',
     quote:
-      'Radiant made undercutting all of our competitors an absolute breeze.',
-  },
-  {
-    img: '/testimonials/amy-chase.jpg',
-    name: 'Amy Chase',
-    title: 'Head of GTM, Pocket',
-    quote:
-      'We closed a deal in literally a few minutes because we knew their exact budget.',
-  },
-  {
-    img: '/testimonials/veronica-winton.jpg',
-    name: 'Veronica Winton',
-    title: 'CSO, Planeteria',
-    quote:
-      'We’ve managed to put two of our main competitors out of business in 6 months.',
-  },
-  {
-    img: '/testimonials/dillon-lenora.jpg',
-    name: 'Dillon Lenora',
-    title: 'VP of Sales, Detax',
-    quote: 'I was able to replace 80% of my team with RadiantAI bots.',
-  },
-  {
-    img: '/testimonials/harriet-arron.jpg',
-    name: 'Harriet Arron',
-    title: 'Account Manager, Commit',
-    quote:
-      'I’ve smashed all my targets without having to speak to a lead in months.',
+      'Hey, I wanted to start another podcast. Fun.',
   },
 ]
+
 
 function TestimonialCard({
   name,
@@ -146,19 +121,6 @@ function TestimonialCard({
 function CallToAction() {
   return (
     <div>
-      <p className="max-w-sm text-sm/6 text-gray-600">
-        Join the best sellers in the business and start using Radiant to hit
-        your targets today.
-      </p>
-      <div className="mt-2">
-        <Link
-          href="#"
-          className="inline-flex items-center gap-2 text-sm/6 font-medium text-pink-600"
-        >
-          Get started
-          <ArrowLongRightIcon className="size-5" />
-        </Link>
-      </div>
     </div>
   )
 }
@@ -183,9 +145,9 @@ export function Testimonials() {
     <div className="overflow-hidden py-32">
       <Container>
         <div ref={setReferenceWindowRef}>
-          <Subheading>What everyone is saying</Subheading>
+          <Subheading>Who we are</Subheading>
           <Heading as="h3" className="mt-2">
-            Trusted by professionals.
+            Figuring it out as we go.
           </Heading>
         </div>
       </Container>
@@ -213,28 +175,7 @@ export function Testimonials() {
         ))}
         <div className="w-[42rem] shrink-0 sm:w-[54rem]" />
       </div>
-      <Container className="mt-16">
-        <div className="flex justify-between">
-          <CallToAction />
-          <div className="hidden sm:flex sm:gap-2">
-            {testimonials.map(({ name }, testimonialIndex) => (
-              <Headless.Button
-                key={testimonialIndex}
-                onClick={() => scrollTo(testimonialIndex)}
-                data-active={
-                  activeIndex === testimonialIndex ? true : undefined
-                }
-                aria-label={`Scroll to testimonial from ${name}`}
-                className={clsx(
-                  'size-2.5 rounded-full border border-transparent bg-gray-300 transition',
-                  'data-[active]:bg-gray-400 data-[hover]:bg-gray-400',
-                  'forced-colors:data-[active]:bg-[Highlight] forced-colors:data-[focus]:outline-offset-4',
-                )}
-              />
-            ))}
-          </div>
-        </div>
-      </Container>
+ 
     </div>
   )
 }
