@@ -27,7 +27,7 @@ const testimonials = [
   {
     img: '/testimonials/linus-chan.jpeg',
     name: 'Linus Chan',
-    title: 'Founder, Senior Technical Writer, Independent Consultant',
+    title: 'Founder',
     quote:
       'Hey, I wanted to start another podcast. Fun.',
   },
