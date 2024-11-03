@@ -33,7 +33,7 @@ Join Linus and Nate, two guys on opposite ends of the career spectrum, as they e
       </p>
       <div className="mt-10 flex justify-center gap-x-6">
          <Button
-          href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+          href="https://shows.acast.com/send-it"
           variant="outline"
         >
           <svg
